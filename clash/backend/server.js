@@ -1,9 +1,10 @@
 import express from "express";
+import cors from "cors";
 
 const app = express();
 const PORT = 3000;
 const API_KEY = process.env.CLASH_API_KEY;
-
+app.use(cors());
 app.get("/cards", async (req, res) => {
   try {
     const response = await fetch("https://api.clashroyale.com/v1/cards", {
