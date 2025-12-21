@@ -1,3 +1,4 @@
+//node --env-file=.env backend/server.js
 import express from "express";
 import cors from "cors";
 
@@ -23,11 +24,3 @@ app.get("/cards", async (req, res) => {
 app.listen(PORT, () =>
   console.log(`Backend running on http://localhost:${PORT}`)
 );
-
-async function getCards() {
-  const response = await fetch("http://localhost:3000/cards");
-  const data = await response.json();
-  console.log(data);
-}
-
-getCards();

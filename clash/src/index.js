@@ -1,3 +1,5 @@
+let clashData = null;
+
 const URL = "http://localhost:3000/cards";
 
 async function getData() {
@@ -10,10 +12,27 @@ async function getData() {
     }
 
     const data = await response.json();
-    console.log("Success! Data from backend:", data);
+    clashData = data.items;
+    console.log("Data: ", clashData);
+    displayCards();
   } catch (err) {
     console.error("Connection error:", err);
   }
+}
+
+const allCards = document.querySelector(".allCards");
+
+function displayCards() {
+  allCards.innerHTML = "";
+  clashData.forEach((card) => {
+    allCards.insertAdjacentHTML(
+      "afterbegin",
+      `<div class="card">
+        <h2>${card.name}</h2>
+        <img src="${card.iconUrls.medium}" alt="${card.name}"
+        </div>`
+    );
+  });
 }
 
 getData();
