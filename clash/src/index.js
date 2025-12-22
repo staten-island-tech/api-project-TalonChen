@@ -27,8 +27,8 @@ function displayCards() {
   clashData.forEach((card) => {
     allCards.insertAdjacentHTML(
       "afterbegin",
-      `<div class="card">
-        <h2>${card.name}</h2>
+      `<div class="card flex flex-col items-center border p-2 bg-white rounded">
+        <h2 class="text-xl font-bold">${card.name}</h2>
         <img src="${card.iconUrls.medium}" alt="${card.name}"
         </div>`
     );
