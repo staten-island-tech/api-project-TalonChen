@@ -1,7 +1,6 @@
 //node --env-file=.env backend/server.js
 import express from "express";
 import cors from "cors";
-
 const app = express();
 const PORT = 3000;
 const API_KEY = process.env.CLASH_API_KEY;
@@ -20,7 +19,6 @@ app.get("/cards", async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 });
-
 app.listen(PORT, () =>
   console.log(`Backend running on http://localhost:${PORT}`)
 );
