@@ -5,7 +5,7 @@ const app = express();
 const PORT = 3000;
 const API_KEY = process.env.CLASH_API_KEY;
 app.use(cors());
-app.get("/cards", async (req, res) => {
+app.get("/cards", async (res) => {
   try {
     const response = await fetch("https://api.clashroyale.com/v1/cards", {
       headers: {
@@ -19,6 +19,3 @@ app.get("/cards", async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 });
-app.listen(PORT, () =>
-  console.log(`Backend running on http://localhost:${PORT}`)
-);
