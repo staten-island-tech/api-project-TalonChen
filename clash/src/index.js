@@ -1,4 +1,4 @@
-let clashData = null;
+let clashData = [];
 
 const URL = "http://localhost:3000/cards";
 
@@ -28,8 +28,8 @@ function displayCards() {
     allCards.insertAdjacentHTML(
       "afterbegin",
       `<div class="card flex flex-col items-center border p-2 bg-white rounded">
-        <h2 class="text-xl font-bold">${card.name}</h2>
-        <img src="${card.iconUrls.medium}" alt="${card.name}"
+        <h2 class=" text-xl font-bold">${card.name}</h2>
+        <img src="${card.iconUrls.medium}" alt="${card.name}">
         </div>`
     );
   });
