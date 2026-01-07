@@ -1,3 +1,24 @@
 @import "tailwindcss";
+
 :root {
+  --primary-blue: #2563eb;
+  --bg-gray: #f3f4f6;
+}
+
+/* Accessibility & Responsive Layouts */
+body {
+  background-color: var(--bg-gray);
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+/* Using REM for responsive sizing as per rubric */
+.card-img {
+  width: 10rem; 
+  height: auto;
+}
+
+/* Ensure images don't overflow on small mobile */
+img {
+  max-width: 100%;
+  height: auto;
 }

@@ -1,15 +1,35 @@
 <!DOCTYPE html>
-<html>
-  <head>
+<html lang="en">
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Clash Royale Cards</title>
     <link href="/src/style.css" rel="stylesheet" />
-  </head>
-  <body>
-    <div class="allCards  flex flex-wrap gap-4 p-4">
-    <div class="allCards flex flex-wrap gap-4 p-4">
-      <h1 class="text-3xl font-bold underline bg-green-50">hi</h1>
-  </div>
+</head>
+<body class="bg-gray-100 min-h-screen">
+    <header class="p-6 bg-blue-600 text-white text-center">
+        <h1 class="text-4xl font-bold">Clash Royale Deck</h1>
+    </header>
+
+    <main class="container mx-auto p-4">
+        <section class="flex justify-center mb-8">
+            <form id="searchForm" class="flex gap-2 w-full max-w-md">
+                <input 
+                    type="text" 
+                    id="searchInput" 
+                    placeholder="Search cards..." 
+                    class="border p-2 rounded w-full focus:outline-blue-500"
+                />
+                <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700 transition">
+                    Search
+                </button>
+            </form>
+        </section>
+
+        <div id="allCards" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            </div>
+    </main>
+
     <script type="module" src="/src/index.js"></script>
-  </body>
+</body>
 </html>
