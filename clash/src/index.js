@@ -1,15 +1,13 @@
-// Global Variables: Storing in a JS Object instead of loose variables
-const state = {
+const global = {
   clashData: [],
   filteredData: [],
   apiUrl: "http://localhost:3000/cards",
 };
-
 const cardContainer = document.querySelector("#allCards");
 const searchForm = document.querySelector("#searchForm");
 const searchInput = document.querySelector("#searchInput");
 
-// Reusable/Modern Code: Abstracted render function
+//Reusable/Modern Code --> down
 const renderCards = (data) => {
   cardContainer.innerHTML = "";
 
@@ -36,21 +34,21 @@ const renderCards = (data) => {
 // Promise Handling: Proper user-facing error handling
 async function getData() {
   try {
-    const response = await fetch(state.apiUrl);
+    const response = await fetch(global.apiUrl);
 
     if (!response.ok) {
       throw new Error(`Failed to fetch data: ${response.status}`);
     }
 
     const data = await response.json();
-    state.clashData = data.items;
-    state.filteredData = data.items;
-    renderCards(state.filteredData);
+    global.clashData = data.items;
+    global.filteredData = data.items;
+    renderCards(global.filteredData);
   } catch (err) {
     // Alerting the user to why the request failed
     cardContainer.innerHTML = `
             <div class="col-span-full bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
-                <strong>Error:</strong> ${err.message}. Please ensure the backend server is running.
+                <strong>Error:</strong> ${err.message}. Backend? New Ip probably D:
             </div>`;
   }
 }
@@ -62,16 +60,14 @@ searchForm.addEventListener("submit", (e) => {
 
   if (!query) {
     // Reset to all cards if empty
-    state.filteredData = state.clashData;
+    global.filteredData = global.clashData;
   } else {
-    // Array Methods: filter
-    state.filteredData = state.clashData.filter((card) =>
+    global.filteredData = global.clashData.filter((card) =>
       card.name.toLowerCase().includes(query)
     );
   }
 
-  renderCards(state.filteredData);
+  renderCards(global.filteredData);
 });
 
-// Initial Load
 getData();
