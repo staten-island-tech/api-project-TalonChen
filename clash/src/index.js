@@ -8,7 +8,7 @@ const searchForm = document.querySelector("#searchForm");
 const searchInput = document.querySelector("#searchInput");
 
 //Reusable/Modern Code --> down
-const renderCards = (data) => {
+const getCards = (data) => {
   cardContainer.innerHTML = "";
 
   if (data.length === 0) {
@@ -22,6 +22,7 @@ const renderCards = (data) => {
       (card) => `
         <article class="flex flex-col items-center border p-4 bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow">
             <h2 class="text-xl font-bold mb-2">${card.name}</h2>
+            <h2 class="text-xl font-bold mb-2">${card.elixirCost}</h2>
             <img src="${card.iconUrls.medium}" alt="${card.name}" class="w-32 h-auto">
         </article>
     `
@@ -43,12 +44,12 @@ async function getData() {
     const data = await response.json();
     global.clashData = data.items;
     global.filteredData = data.items;
-    renderCards(global.filteredData);
+    getCards(global.filteredData);
   } catch (err) {
-    // Alerting the user to why the request failed
+    //IF there is no data --> down
     cardContainer.innerHTML = `
             <div class="col-span-full bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
-                <strong>Error:</strong> ${err.message}. Backend? New Ip probably D:
+                <h1>Error:</h1> ${err.message}. Backend? New Ip probably D:
             </div>`;
   }
 }
@@ -56,18 +57,18 @@ async function getData() {
 // Form Handling: Logic to prevent blank fields and filter results
 searchForm.addEventListener("submit", (e) => {
   e.preventDefault();
-  const query = searchInput.value.trim().toLowerCase();
+  const search = searchInput.value.trim().toLowerCase();
 
-  if (!query) {
-    // Reset to all cards if empty
+  if (!search) {
+    //IF nothing in search bar, then it resets all the cards.
     global.filteredData = global.clashData;
   } else {
     global.filteredData = global.clashData.filter((card) =>
-      card.name.toLowerCase().includes(query)
+      card.name.toLowerCase().includes(search)
     );
   }
 
-  renderCards(global.filteredData);
+  getCards(global.filteredData);
 });
 
 getData();

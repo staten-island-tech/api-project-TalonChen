@@ -1,6 +1,7 @@
-//node --env-file=.env backend/server.js
+//node --env-file=.env backend/server.
 import express from "express";
 import cors from "cors";
+
 const app = express();
 const PORT = 3000;
 const API_KEY = process.env.CLASH_API_KEY;
