@@ -1,4 +1,4 @@
-//node --env-file=.env backend/server.
+//node --env-file=.env backend/server.js
 import express from "express";
 import cors from "cors";
 
