@@ -7,7 +7,7 @@ const cardContainer = document.querySelector("#allCards");
 const searchForm = document.querySelector("#searchForm");
 const searchInput = document.querySelector("#searchInput");
 
-//Reusable/Modern Code --> down
+//Reusable/Modern Code -->
 const getCards = (data) => {
   cardContainer.innerHTML = "";
 
@@ -16,13 +16,14 @@ const getCards = (data) => {
     return;
   }
 
-  // Array Methods: Using map to join strings (efficient for large lists)
+  // Array Methods -> Using map to join strings
   const cardsHtml = data
     .map(
       (card) => `
         <article class="flex flex-col items-center border p-4 bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow">
             <h2 class="text-xl font-bold mb-2">${card.name}</h2>
-            <h2 class="text-xl font-bold mb-2">${card.elixirCost}</h2>
+            <h2 class="text-xl font-bold mb-2"> Elixir Cost = ${card.elixirCost}</h2>
+            <h2 class="text-xl font-bold mb-2"> Rarity = ${card.rarity}</h2>
             <img src="${card.iconUrls.medium}" alt="${card.name}" class="w-32 h-auto">
         </article>
     `
@@ -32,7 +33,7 @@ const getCards = (data) => {
   cardContainer.insertAdjacentHTML("afterbegin", cardsHtml);
 };
 
-// Promise Handling: Proper user-facing error handling
+// Promise Handling
 async function getData() {
   try {
     const response = await fetch(global.apiUrl);
