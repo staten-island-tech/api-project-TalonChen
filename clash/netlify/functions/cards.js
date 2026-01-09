@@ -1,4 +1,3 @@
-//node --env-file=.env backend/server.js
 // netlify/functions/cards.js
 import fetch from "node-fetch"; // You may need to install node-fetch
 

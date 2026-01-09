@@ -1,7 +1,7 @@
 const global = {
   clashData: [],
   filteredData: [],
-  apiUrl: "http://localhost:3000/cards",
+  apiUrl: "/.netlify/functions/cards",
 };
 const cardContainer = document.querySelector("#allCards");
 const searchForm = document.querySelector("#searchForm");
