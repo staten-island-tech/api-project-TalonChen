@@ -1,5 +1,5 @@
-// netlify/functions/cards.js
-import fetch from "node-fetch"; // You may need to install node-fetch
+// Note: In Netlify Functions, you don't need to 'listen' to a port.
+// The handler function is triggered automatically by the URL.
 
 export const handler = async (event, context) => {
   const API_KEY = process.env.CLASH_API_KEY;
@@ -11,10 +11,23 @@ export const handler = async (event, context) => {
         Accept: "application/json",
       },
     });
+
+    if (!response.ok) {
+      return {
+        statusCode: response.status,
+        body: JSON.stringify({ error: "Failed to fetch from Clash API" }),
+      };
+    }
+
     const data = await response.json();
 
     return {
       statusCode: 200,
+      headers: {
+        "Content-Type": "application/json",
+        // These headers help prevent CORS issues during testing
+        "Access-Control-Allow-Origin": "*",
+      },
       body: JSON.stringify(data),
     };
   } catch (err) {
