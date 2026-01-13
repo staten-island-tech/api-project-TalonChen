@@ -1,43 +1,50 @@
 export const handler = async (event, context) => {
-  // 1. Check if the API key exists at all
-  const API_KEY = process.env.CLASH_API_KEY;
-  console.info("Function started. API Key exists:", !!API_KEY);
+  // 1. Log exactly what we are seeing (without showing the whole secret)
+  const rawKey = process.env.CLASH_API_KEY;
+  const keyLength = rawKey ? rawKey.length : 0;
+  console.log(`DEBUG: Key exists: ${!!rawKey} | Length: ${keyLength}`);
+
+  if (!rawKey) {
+    return {
+      statusCode: 500,
+      body: JSON.stringify({
+        error:
+          "Environment Variable CLASH_API_KEY is missing in Netlify settings.",
+      }),
+    };
+  }
 
   try {
-    const response = await fetch("https://api.clashroyale.com/v1/cards", {
+    const response = await fetch("https://proxy.royaleapi.dev/v1/cards", {
+      method: "GET",
       headers: {
-        Authorization: `Bearer ${API_KEY}`,
+        // We use .replace to remove any accidental invisible characters or newlines
+        Authorization: `Bearer ${rawKey.replace(/\s/g, "")}`,
         Accept: "application/json",
       },
     });
 
-    // 2. If it's not a 200 OK, find out WHY
-    if (!response.ok) {
-      const errorText = await response.text(); // This captures the API's specific error message
-      console.error(`Clash API Error (${response.status}):`, errorText);
+    const text = await response.text();
+    console.log(`DEBUG: Response Status: ${response.status}`);
 
+    if (!response.ok) {
+      console.error("DEBUG: API rejected request:", text);
       return {
         statusCode: response.status,
-        body: JSON.stringify({
-          error: `API returned ${response.status}`,
-          details: errorText,
-        }),
+        body: JSON.stringify({ error: "Auth Failure", details: text }),
       };
     }
 
-    const data = await response.json();
-    console.info("Successfully fetched cards:", data.items?.length);
-
     return {
       statusCode: 200,
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+      },
+      body: text,
     };
   } catch (err) {
-    console.error("FUNCTION CRASHED:", err.message);
-    return {
-      statusCode: 500,
-      body: JSON.stringify({ error: err.message }),
-    };
+    console.error("DEBUG: Fetch Crash:", err.message);
+    return { statusCode: 500, body: JSON.stringify({ error: err.message }) };
   }
 };
