@@ -2,7 +2,7 @@ export const handler = async (event, context) => {
   // 1. Log exactly what we are seeing (without showing the whole secret)
   const rawKey = process.env.CLASH_API_KEY;
   const keyLength = rawKey ? rawKey.length : 0;
-  console.log(`DEBUG: Key exists: ${!!rawKey} | Length: ${keyLength}`);
+  console.log(`DEBUG: Key exists: ${!!rawKey} Length: ${keyLength}`);
 
   if (!rawKey) {
     return {
